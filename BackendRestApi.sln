@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendRestApi", "BackendRestApi.csproj", "{C98F872A-C45A-4C47-AABB-1DF26CA0E209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C98F872A-C45A-4C47-AABB-1DF26CA0E209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98F872A-C45A-4C47-AABB-1DF26CA0E209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98F872A-C45A-4C47-AABB-1DF26CA0E209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98F872A-C45A-4C47-AABB-1DF26CA0E209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1F592CBD-620D-4B2C-9211-015D86E02041}
+	EndGlobalSection
+EndGlobal
