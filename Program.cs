@@ -8,8 +8,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+                       ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
 var options = new DbContextOptionsBuilder<AIContext>()
-    .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .UseSqlServer(connectionString)
     .Options;
 
 builder.Services.AddSingleton(AIContextSingleton.GetInstance(options));
@@ -20,6 +23,9 @@ builder.Services.AddScoped<TrainingTypeRepository>();
 builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
+
+app.Urls.Add("http://+:8080");
+//app.Urls.Add("https://+:8081");
 
 app.UseSwagger();
 app.UseSwaggerUI();
