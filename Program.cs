@@ -1,20 +1,28 @@
+using BackendRestApi.Data;
+using BackendRestApi.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var options = new DbContextOptionsBuilder<AIContext>()
+    .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .Options;
+
+builder.Services.AddSingleton(AIContextSingleton.GetInstance(options));
+
+builder.Services.AddScoped<AuthenticationRepository>();
+builder.Services.AddScoped<TrainingSeriesRepository>();
+builder.Services.AddScoped<TrainingTypeRepository>();
+builder.Services.AddScoped<UserRepository>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
