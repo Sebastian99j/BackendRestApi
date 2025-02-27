@@ -34,7 +34,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> CreateAuthentication([FromBody] Authentication auth)
         {
             await _authRepository.AddAsync(auth);
-            await _authRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAuthenticationById), new { id = auth.id }, auth);
         }
 
@@ -44,7 +43,6 @@ namespace BackendRestApi.Controllers
             if (id != auth.id) return BadRequest();
 
             await _authRepository.UpdateAsync(auth);
-            await _authRepository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -52,7 +50,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> DeleteAuthentication(int id)
         {
             await _authRepository.DeleteAsync(id);
-            await _authRepository.SaveChangesAsync();
             return NoContent();
         }
     }

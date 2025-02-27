@@ -34,7 +34,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             await _userRepository.AddAsync(user);
-            await _userRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
         }
 
@@ -44,7 +43,6 @@ namespace BackendRestApi.Controllers
             if (id != user.Id) return BadRequest();
 
             await _userRepository.UpdateAsync(user);
-            await _userRepository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -52,7 +50,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> DeleteUser(int id)
         {
             await _userRepository.DeleteAsync(id);
-            await _userRepository.SaveChangesAsync();
             return NoContent();
         }
     }

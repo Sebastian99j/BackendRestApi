@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mssql_db:
+    build:
+      context: ../AIRestApi
+      dockerfile: Dockerfile-mssql
+    container_name: mssql_db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+    networks:
+      - network-application
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd' -Q 'SELECT 1' || exit 1" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+
+  res_api_app_container:
+    build: .
+    container_name: res_api_app_container
+    restart: always
+    environment:
+      - DATABASE_URL=Server=mssql_db,1433;Database=AI_database;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "8080:8080"  # HTTP
+    depends_on:
+      mssql_db:
+        condition: service_healthy
+    networks:
+      - network-application
+
+networks:
+  network-application:
+    driver: bridge
+    external: true

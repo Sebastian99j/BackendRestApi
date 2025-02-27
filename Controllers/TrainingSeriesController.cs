@@ -34,7 +34,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> CreateTrainingSeries([FromBody] TrainingSeries training)
         {
             await _trainingSeriesRepository.AddAsync(training);
-            await _trainingSeriesRepository.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTrainingSeriesById), new { id = training.Id }, training);
         }
 
@@ -44,7 +43,6 @@ namespace BackendRestApi.Controllers
             if (id != training.Id) return BadRequest();
 
             await _trainingSeriesRepository.UpdateAsync(training);
-            await _trainingSeriesRepository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -52,7 +50,6 @@ namespace BackendRestApi.Controllers
         public async Task<IActionResult> DeleteTrainingSeries(int id)
         {
             await _trainingSeriesRepository.DeleteAsync(id);
-            await _trainingSeriesRepository.SaveChangesAsync();
             return NoContent();
         }
     }
