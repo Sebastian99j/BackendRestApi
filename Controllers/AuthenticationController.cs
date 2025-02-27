@@ -1,11 +1,13 @@
 ﻿using BackendRestApi.Models;
 using BackendRestApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController : ControllerBase
     {
         private readonly AuthenticationRepository _authRepository;
@@ -16,6 +18,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllAuthentications()
         {
             var auths = await _authRepository.GetAllAsync();
@@ -23,6 +26,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAuthenticationById(int id)
         {
             var auth = await _authRepository.GetByIdAsync(id);
@@ -31,6 +35,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateAuthentication([FromBody] Authentication auth)
         {
             await _authRepository.AddAsync(auth);
@@ -38,6 +43,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateAuthentication(int id, [FromBody] Authentication auth)
         {
             if (id != auth.id) return BadRequest();
@@ -47,6 +53,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAuthentication(int id)
         {
             await _authRepository.DeleteAsync(id);

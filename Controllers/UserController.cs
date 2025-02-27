@@ -1,11 +1,13 @@
 ﻿using BackendRestApi.Models;
 using BackendRestApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserRepository _userRepository;
@@ -16,6 +18,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userRepository.GetAllAsync();
@@ -23,6 +26,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
@@ -31,6 +35,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
             await _userRepository.AddAsync(user);
@@ -38,6 +43,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
         {
             if (id != user.Id) return BadRequest();
@@ -47,6 +53,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
             await _userRepository.DeleteAsync(id);

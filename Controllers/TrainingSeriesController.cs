@@ -1,11 +1,13 @@
 ﻿using BackendRestApi.Models;
 using BackendRestApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TrainingSeriesController : ControllerBase
     {
         private readonly TrainingSeriesRepository _trainingSeriesRepository;
@@ -16,6 +18,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllTrainingSeries()
         {
             var trainingSeries = await _trainingSeriesRepository.GetAllAsync();
@@ -23,6 +26,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetTrainingSeriesById(int id)
         {
             var training = await _trainingSeriesRepository.GetByIdAsync(id);
@@ -31,6 +35,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateTrainingSeries([FromBody] TrainingSeries training)
         {
             await _trainingSeriesRepository.AddAsync(training);
@@ -38,6 +43,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateTrainingSeries(int id, [FromBody] TrainingSeries training)
         {
             if (id != training.Id) return BadRequest();
@@ -47,6 +53,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTrainingSeries(int id)
         {
             await _trainingSeriesRepository.DeleteAsync(id);

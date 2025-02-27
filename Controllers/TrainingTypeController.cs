@@ -1,11 +1,13 @@
 ﻿using BackendRestApi.Models;
 using BackendRestApi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackendRestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TrainingTypeController : ControllerBase
     {
         private readonly TrainingTypeRepository _trainingTypeRepository;
@@ -16,6 +18,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllTrainingTypes()
         {
             var trainingTypes = await _trainingTypeRepository.GetAllAsync();
@@ -23,6 +26,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetTrainingTypeById(int id)
         {
             var trainingType = await _trainingTypeRepository.GetByIdAsync(id);
@@ -31,6 +35,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateTrainingType([FromBody] TrainingType trainingType)
         {
             await _trainingTypeRepository.AddAsync(trainingType);
@@ -38,6 +43,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateTrainingType(int id, [FromBody] TrainingType trainingType)
         {
             if (id != trainingType.Id) return BadRequest();
@@ -47,6 +53,7 @@ namespace BackendRestApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteTrainingType(int id)
         {
             await _trainingTypeRepository.DeleteAsync(id);
