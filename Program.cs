@@ -1,8 +1,20 @@
-using BackendRestApi.Data;
+﻿using BackendRestApi.Data;
 using BackendRestApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var certPath = Environment.GetEnvironmentVariable("CERT_PATH") ?? "/https/cert.pfx";
+var certPassword = Environment.GetEnvironmentVariable("CERT_PASSWORD") ?? "YourStrongPassword";
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(8080); // HTTP
+    serverOptions.ListenAnyIP(8081, listenOptions =>
+    {
+        listenOptions.UseHttps(certPath, certPassword);
+    });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -24,16 +36,11 @@ builder.Services.AddScoped<UserRepository>();
 
 var app = builder.Build();
 
-app.Urls.Add("http://+:8080");
-//app.Urls.Add("https://+:8081");
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
