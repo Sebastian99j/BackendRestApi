@@ -1,6 +1,10 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 
+ENV ACCEPT_EULA=Y
+
+RUN apt-get update && apt-get install -y curl  # Instalacja curl
+
 RUN mkdir /https
 COPY cert.pfx /https/cert.pfx
 
@@ -12,7 +16,7 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["BackendRestApi.csproj", "."]
 RUN dotnet restore "./BackendRestApi.csproj"
-COPY . .
+COPY . . 
 WORKDIR "/src/."
 RUN dotnet build "./BackendRestApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

@@ -53,6 +53,8 @@ builder.Services.AddScoped<TrainingTypeRepository>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddSingleton<JwtService>();
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -97,6 +99,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+app.UseHealthChecks("/health");
 
 if (app.Environment.IsDevelopment())
 {

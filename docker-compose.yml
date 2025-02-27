@@ -19,9 +19,9 @@ services:
       retries: 5
       start_period: 30s
 
-  res_api_app_container:
+  rest_api_app_container:
     build: .
-    container_name: res_api_app_container
+    container_name: rest_api_app_container
     restart: always
     environment:
       - DATABASE_URL=Server=mssql_db,1433;Database=AI_database;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
