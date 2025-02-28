@@ -3,9 +3,7 @@ using BackendRestApi.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using System.Text;
-using Yarp.ReverseProxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,21 +22,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ListenAnyIP(8080);
 });
-
-builder.Services.AddReverseProxy()
-    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-
-//var certPath = Environment.GetEnvironmentVariable("CERT_PATH") ?? "/https/cert.pfx";
-//var certPassword = Environment.GetEnvironmentVariable("CERT_PASSWORD") ?? "YourStrongPassword";
-
-//builder.WebHost.ConfigureKestrel(serverOptions =>
-//{
-//    serverOptions.ListenAnyIP(8080); // HTTP //8133
-//    serverOptions.ListenAnyIP(8081, listenOptions => //8134
-//    {
-//        listenOptions.UseHttps(certPath, certPassword);
-//    });
-//});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -105,8 +88,6 @@ var app = builder.Build();
 
 app.UseHealthChecks("/health");
 
-app.MapReverseProxy();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -150,7 +131,6 @@ app.Use(async (context, next) =>
 
 app.UseCors("AllowAll");
 
-//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
