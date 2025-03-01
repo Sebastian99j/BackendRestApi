@@ -34,13 +34,13 @@ namespace BackendRestApi.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateUser([FromBody] User user)
-        {
-            await _userRepository.AddAsync(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-        }
+        //[HttpPost]
+        //[Authorize]
+        //public async Task<IActionResult> CreateUser([FromBody] User user)
+        //{
+        //    await _userRepository.AddAsync(user);
+        //    return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+        //}
 
         [HttpPut("{id}")]
         [Authorize]
