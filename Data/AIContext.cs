@@ -21,8 +21,6 @@ public class AIContext : DbContext
         }
     }
 
-    public virtual DbSet<Authentication> Authentication { get; set; }
-
     public virtual DbSet<TrainingSeries> TrainingSeries { get; set; }
 
     public virtual DbSet<TrainingType> TrainingType { get; set; }
