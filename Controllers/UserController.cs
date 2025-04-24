@@ -10,9 +10,9 @@ namespace BackendRestApi.Controllers
     [Authorize]
     public class UserController : ControllerBase
     {
-        private readonly UserRepository _userRepository;
+        private readonly UsersRepository _userRepository;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UsersRepository userRepository)
         {
             _userRepository = userRepository;
         }
@@ -44,7 +44,7 @@ namespace BackendRestApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] User user)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] Users user)
         {
             if (id != user.Id) return BadRequest();
 

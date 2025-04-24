@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace BackendRestApi.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TrainingType",
+                name: "TrainingTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,11 +21,11 @@ namespace BackendRestApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TrainingType", x => x.Id);
+                    table.PrimaryKey("PK_TrainingTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -36,7 +36,7 @@ namespace BackendRestApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,14 +59,14 @@ namespace BackendRestApi.Migrations
                 {
                     table.PrimaryKey("PK_TrainingSeries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TrainingSeries_TrainingType_TrainingTypeId",
+                        name: "FK_TrainingSeries_TrainingTypes_TrainingTypeId",
                         column: x => x.TrainingTypeId,
-                        principalTable: "TrainingType",
+                        principalTable: "TrainingTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_TrainingSeries_User_UserId",
+                        name: "FK_TrainingSeries_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
@@ -88,10 +88,10 @@ namespace BackendRestApi.Migrations
                 name: "TrainingSeries");
 
             migrationBuilder.DropTable(
-                name: "TrainingType");
+                name: "TrainingTypes");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

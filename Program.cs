@@ -33,10 +33,9 @@ var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
 builder.Services.AddDbContextFactory<AIContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<AuthenticationRepository>();
 builder.Services.AddScoped<TrainingSeriesRepository>();
-builder.Services.AddScoped<TrainingTypeRepository>();
-builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<TrainingTypesRepository>();
+builder.Services.AddScoped<UsersRepository>();
 builder.Services.AddSingleton<JwtService>();
 
 builder.Services.AddHealthChecks();

@@ -10,9 +10,9 @@ namespace BackendRestApi.Controllers
     [Authorize]
     public class TrainingTypeController : ControllerBase
     {
-        private readonly TrainingTypeRepository _trainingTypeRepository;
+        private readonly TrainingTypesRepository _trainingTypeRepository;
 
-        public TrainingTypeController(TrainingTypeRepository trainingTypeRepository)
+        public TrainingTypeController(TrainingTypesRepository trainingTypeRepository)
         {
             _trainingTypeRepository = trainingTypeRepository;
         }
@@ -36,7 +36,7 @@ namespace BackendRestApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CreateTrainingType([FromBody] TrainingType trainingType)
+        public async Task<IActionResult> CreateTrainingType([FromBody] TrainingTypes trainingType)
         {
             await _trainingTypeRepository.AddAsync(trainingType);
             return CreatedAtAction(nameof(GetTrainingTypeById), new { id = trainingType.Id }, trainingType);
@@ -44,7 +44,7 @@ namespace BackendRestApi.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> UpdateTrainingType(int id, [FromBody] TrainingType trainingType)
+        public async Task<IActionResult> UpdateTrainingType(int id, [FromBody] TrainingTypes trainingType)
         {
             if (id != trainingType.Id) return BadRequest();
 

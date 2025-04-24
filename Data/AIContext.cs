@@ -23,9 +23,9 @@ public class AIContext : DbContext
 
     public virtual DbSet<TrainingSeries> TrainingSeries { get; set; }
 
-    public virtual DbSet<TrainingType> TrainingType { get; set; }
+    public virtual DbSet<TrainingTypes> TrainingTypes { get; set; }
 
-    public virtual DbSet<User> User { get; set; }
+    public virtual DbSet<Users> Users { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{

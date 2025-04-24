@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackendRestApi.Models;
 
+[Table("TrainingSeries")]
 public partial class TrainingSeries
 {
     public int Id { get; set; }
@@ -25,7 +27,7 @@ public partial class TrainingSeries
 
     public bool? Trained { get; set; }
 
-    public virtual TrainingType? TrainingType { get; set; }
+    public virtual TrainingTypes? TrainingType { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual Users? User { get; set; }
 }

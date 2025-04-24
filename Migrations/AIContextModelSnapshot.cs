@@ -66,7 +66,7 @@ namespace BackendRestApi.Migrations
                     b.ToTable("TrainingSeries");
                 });
 
-            modelBuilder.Entity("BackendRestApi.Models.TrainingType", b =>
+            modelBuilder.Entity("BackendRestApi.Models.TrainingTypes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,10 +80,10 @@ namespace BackendRestApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingType");
+                    b.ToTable("TrainingTypes");
                 });
 
-            modelBuilder.Entity("BackendRestApi.Models.User", b =>
+            modelBuilder.Entity("BackendRestApi.Models.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,16 +103,16 @@ namespace BackendRestApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BackendRestApi.Models.TrainingSeries", b =>
                 {
-                    b.HasOne("BackendRestApi.Models.TrainingType", "TrainingType")
+                    b.HasOne("BackendRestApi.Models.TrainingTypes", "TrainingType")
                         .WithMany("TrainingSeries")
                         .HasForeignKey("TrainingTypeId");
 
-                    b.HasOne("BackendRestApi.Models.User", "User")
+                    b.HasOne("BackendRestApi.Models.Users", "User")
                         .WithMany("TrainingSeries")
                         .HasForeignKey("UserId");
 
@@ -121,12 +121,12 @@ namespace BackendRestApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BackendRestApi.Models.TrainingType", b =>
+            modelBuilder.Entity("BackendRestApi.Models.TrainingTypes", b =>
                 {
                     b.Navigation("TrainingSeries");
                 });
 
-            modelBuilder.Entity("BackendRestApi.Models.User", b =>
+            modelBuilder.Entity("BackendRestApi.Models.Users", b =>
                 {
                     b.Navigation("TrainingSeries");
                 });

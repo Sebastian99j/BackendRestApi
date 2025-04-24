@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BackendRestApi.Repositories
 {
-    public class TrainingTypeRepository : Repository<TrainingType>
+    public class UsersRepository : Repository<Users>
     {
-        public TrainingTypeRepository(IDbContextFactory<AIContext> contextFactory)
+        public UsersRepository(IDbContextFactory<AIContext> contextFactory)
             : base(contextFactory) { }
     }
 }

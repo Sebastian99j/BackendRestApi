@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackendRestApi.Models;
 
-public partial class User
+[Table("TrainingTypes")]
+public partial class TrainingTypes
 {
     public int Id { get; set; }
 
-    public string Username { get; set; } = null!;
-
-    public string? AiIdentifier { get; set; }
-    public string? PasswordHash { get; set; }
+    public string Name { get; set; } = null!;
 
     public virtual ICollection<TrainingSeries> TrainingSeries { get; set; } = new List<TrainingSeries>();
 }
