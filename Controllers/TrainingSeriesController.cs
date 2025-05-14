@@ -11,10 +11,13 @@ namespace BackendRestApi.Controllers
     public class TrainingSeriesController : ControllerBase
     {
         private readonly TrainingSeriesRepository _trainingSeriesRepository;
+        private readonly TrainingSeriesRepositorySpec _trainingSeriesRepositorySpec;
 
-        public TrainingSeriesController(TrainingSeriesRepository trainingSeriesRepository)
+        public TrainingSeriesController(TrainingSeriesRepository trainingSeriesRepository,
+            TrainingSeriesRepositorySpec trainingSeriesRepositorySpec)
         {
             _trainingSeriesRepository = trainingSeriesRepository;
+            _trainingSeriesRepositorySpec = trainingSeriesRepositorySpec;
         }
 
         [HttpGet]
@@ -46,9 +49,23 @@ namespace BackendRestApi.Controllers
         [Authorize]
         public async Task<IActionResult> GetTrainingSeriesByUserId([FromBody] UserIdRequest user)
         {
-            var training = await _trainingSeriesRepository.GetListByUserIdAsync(user.Id);
+            var training = await _trainingSeriesRepositorySpec.GetListByUserIdAsync(user.Id);
             if (!training.Any()) return NotFound();
-            return Ok(training);
+
+            var result = training.Select(t => new TrainingSeriesDto
+            {
+                Id = t.Id,
+                TrainingType = t.TrainingType?.Name ?? "Brak",
+                Weight = t.Weight ?? 0,
+                Reps = t.Reps ?? 0,
+                Sets = t.Sets ?? 0,
+                Rpe = t.RPE ?? 0,
+                DateTime = t.DateTime ?? DateTime.Now,
+                BreaksInSeconds = t.BreaksInSeconds ?? 0,
+                Trained = t.Trained ?? false
+            }).ToList();
+
+            return Ok(result);
         }
 
         [HttpPut("{id}")]

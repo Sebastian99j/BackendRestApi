@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackendRestApi.Models;
 
@@ -21,7 +19,7 @@ public partial class TrainingSeries
 
     public int? RPE { get; set; }
 
-    public DateOnly? DateTime { get; set; }
+    public DateTime? DateTime { get; set; }
 
     public int? BreaksInSeconds { get; set; }
 

@@ -35,6 +35,7 @@ builder.Services.AddDbContextFactory<AIContext>(options =>
 
 builder.Services.AddScoped<TrainingSeriesRepository>();
 builder.Services.AddScoped<TrainingTypesRepository>();
+builder.Services.AddScoped<TrainingSeriesRepositorySpec>();
 builder.Services.AddScoped<UsersRepository>();
 builder.Services.AddSingleton<JwtService>();
 
