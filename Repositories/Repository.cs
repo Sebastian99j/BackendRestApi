@@ -1,6 +1,5 @@
 ﻿using BackendRestApi.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace BackendRestApi.Repositories
 {
@@ -29,6 +28,14 @@ namespace BackendRestApi.Repositories
         {
             using var context = _contextFactory.CreateDbContext();
             return await context.Set<T>().FirstOrDefaultAsync(e => EF.Property<string>(e, "Username") == name);
+        }
+
+        public async Task<List<T>> GetListByUserIdAsync(int userId)
+        {
+            using var context = _contextFactory.CreateDbContext();
+            return await context.Set<T>()
+                .Where(e => EF.Property<int>(e, "UserId") == userId)
+                .ToListAsync();
         }
 
         public async Task AddAsync(T entity)

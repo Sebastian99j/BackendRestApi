@@ -42,6 +42,15 @@ namespace BackendRestApi.Controllers
             return CreatedAtAction(nameof(GetTrainingSeriesById), new { id = training.Id }, training);
         }
 
+        [HttpPost("user")]
+        [Authorize]
+        public async Task<IActionResult> GetTrainingSeriesByUserId([FromBody] UserIdRequest user)
+        {
+            var training = await _trainingSeriesRepository.GetListByUserIdAsync(user.Id);
+            if (!training.Any()) return NotFound();
+            return Ok(training);
+        }
+
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateTrainingSeries(int id, [FromBody] TrainingSeries training)
