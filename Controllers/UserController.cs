@@ -34,6 +34,15 @@ namespace BackendRestApi.Controllers
             return Ok(user);
         }
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> GetUserByUsername([FromBody] UsernameRequest request)
+        {
+            var user = await _userRepository.GetByNameAsync(request.Username);
+            if (user == null) return NotFound();
+            return Ok(user);
+        }
+
         //[HttpPost]
         //[Authorize]
         //public async Task<IActionResult> CreateUser([FromBody] User user)

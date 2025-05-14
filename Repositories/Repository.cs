@@ -25,6 +25,12 @@ namespace BackendRestApi.Repositories
             return await context.Set<T>().FindAsync(id);
         }
 
+        public async Task<T?> GetByNameAsync(string name)
+        {
+            using var context = _contextFactory.CreateDbContext();
+            return await context.Set<T>().FirstOrDefaultAsync(e => EF.Property<string>(e, "Username") == name);
+        }
+
         public async Task AddAsync(T entity)
         {
             using var context = _contextFactory.CreateDbContext();
