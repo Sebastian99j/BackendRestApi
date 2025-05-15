@@ -11,6 +11,6 @@
         public DateTime DateTime { get; set; }
         public int BreaksInSeconds { get; set; }
         public bool Trained { get; set; }
+        public int? UserId { get; set; } = null;
     }
-
 }

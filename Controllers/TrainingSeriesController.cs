@@ -45,6 +45,29 @@ namespace BackendRestApi.Controllers
             return CreatedAtAction(nameof(GetTrainingSeriesById), new { id = training.Id }, training);
         }
 
+        [HttpPost("new")]
+        [Authorize]
+        public async Task<IActionResult> CreateTrainingSeries([FromBody] TrainingSeriesDto dto)
+        {
+            var entity = new TrainingSeries
+            {
+                UserId = dto.UserId,
+                TrainingTypeId = _trainingSeriesRepositorySpec.GetTrainingTypeId(dto.TrainingType),
+                Weight = dto.Weight,
+                Reps = dto.Reps,
+                Sets = dto.Sets,
+                RPE = dto.Rpe,
+                DateTime = dto.DateTime,
+                BreaksInSeconds = dto.BreaksInSeconds,
+                Trained = dto.Trained
+            };
+
+            await _trainingSeriesRepository.AddAsync(entity);
+
+            dto.Id = entity.Id;
+            return CreatedAtAction(nameof(GetTrainingSeriesById), new { id = dto.Id }, dto);
+        }
+
         [HttpPost("user")]
         [Authorize]
         public async Task<IActionResult> GetTrainingSeriesByUserId([FromBody] UserIdRequest user)

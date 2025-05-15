@@ -22,5 +22,14 @@ namespace BackendRestApi.Repositories
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
         }
+
+        public int? GetTrainingTypeId(string typeName)
+        {
+            using var _context = _contextFactory.CreateDbContext();
+
+            var trainingType = _context.TrainingTypes.FirstOrDefault(t => t.Name == typeName);
+            return trainingType?.Id;
+        }
+
     }
 }
