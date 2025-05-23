@@ -99,6 +99,7 @@ if (app.Environment.IsDevelopment())
         if (dbContext.Database.CanConnect())
         {
             dbContext.Database.Migrate();
+            await DbSeeder.SeedAsync(dbContext);
             Console.WriteLine("Database migration completed.");
         }
     }
